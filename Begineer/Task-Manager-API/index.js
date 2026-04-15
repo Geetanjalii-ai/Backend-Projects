@@ -1,6 +1,7 @@
 import express from 'express';
 import { connectDB } from './config/db.js';
-import router from './routes/route_user.js'
+import router1 from './routes/route_user.js';
+import router2 from './routes/route_task.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -10,7 +11,8 @@ const app=express();
 app.use(express.json());
 
 
-app.use('/user',router);
+app.use('/user',router1);
+app.use('/tasks',router2);
 
 app.get('/',(req,res)=>{
 

@@ -48,5 +48,5 @@ const getUser = async(req,res) =>{
       }
 };
 
-export { createUser, getUser};
+export {createUser, getUser};
 
