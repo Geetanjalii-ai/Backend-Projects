@@ -1,0 +1,28 @@
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import { User } from '../models/user.js';
+dotenv.config();
+
+
+export const auth=async(req,res,next)=>{
+
+    try{
+      const token=req.header('Authorization');
+      const decoded=jwt.verify(token,process.env.JWT_SECRET_KEY);
+      const user=await User.findOne({ _id: decoded.userId });
+
+      if(!user)
+      {
+        return res.status(401).json({message:'Unauthorized'});
+      }
+
+      req.user=user;
+      req.token=token;
+      next();
+    }
+    catch(error)
+    {
+        return res.status(401).json({message:'Unauthorized',error:error.message});
+    }
+
+};
